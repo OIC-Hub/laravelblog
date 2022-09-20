@@ -25,8 +25,12 @@
       <td>{{$post->title}}</td>
       <td>{{$post->body}}</td>
        <td>
-      <a href="" class="btn btn-success">Edit</a> || <a href="" class="btn btn-danger">Delete</a>
-
+      <a href="" class="btn btn-success">Edit</a> ||
+      <form action="{{route('admin.post.delete', $post->id)}}" method="post">
+        @method('delete')
+        @csrf
+      <button type="submit" class="btn btn-danger"> Delete</button>
+      </form>
        </td>
     </tr>
     @endforeach

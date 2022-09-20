@@ -22,8 +22,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// Admin Posts
 
+// Admin Posts
 Route::get('/admin/post', [PostsController::class, 'index'])->name('admin.post');
 Route::get('/admin/post/create', [PostsController::class, 'create'])->name('admin.post.create');
 Route::post('/admin/post', [PostsController::class, 'store'])->name('admin.post.store');
+Route::delete('/admin/post/delete/{id}', [PostsController::class, 'delete'])->name('admin.post.delete');
