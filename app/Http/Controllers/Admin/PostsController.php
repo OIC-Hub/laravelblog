@@ -12,7 +12,7 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::with('picture')->get();
         return view('admin.post.index', compact(['posts']));
     }
     public function create()
@@ -65,8 +65,13 @@ class PostsController extends Controller
         return redirect()->back()->with('success', 'You data has succefuly submitted');
         // return redirect()->route('admin.post');
     }
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
+        if ($request->picture_id) {
+            $picture   = Picture::where('id', $request->picture_id)->first();
+            unlink(public_path() . '/images/' . $picture->name);
+            $picture->delete();
+        }
         Post::findorfail($id)->delete();
         return redirect('admin/post')->with('delete', 'Your post has successfully deleted');
     }
